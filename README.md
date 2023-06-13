@@ -36,3 +36,7 @@ await attacker.setDAO('0xBcd4042DE499D14e55001CcbB24a551F3b954096')
 await network.provider.send("eth_blockNumber") ;
  ...
 ```
+
+## todo
+- https://github.com/uni-due-syssec/eth-reentrancy-attack-patterns/blob/master/simple_setup.js  
+- customize script above.
