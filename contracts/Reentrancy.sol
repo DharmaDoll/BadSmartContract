@@ -11,7 +11,7 @@ pragma solidity ^0.8.0;
 // this code also works with older solidity
 /*pragma solidity ^0.4.19;*/
 
-contract Attacker {
+contract Attacker_01 {
     SimpleDAO public dao;
     address owner;
 

@@ -12,22 +12,26 @@ async function main() {
 
   const lockedAmount = hre.ethers.utils.parseEther("0.001");
 
-  const Mal = await hre.ethers.getContractFactory("Attacker");
-  const Dao = await hre.ethers.getContractFactory("SimpleDAO");
+  const Mal = await hre.ethers.getContractFactory("Attacker_03");
+  const Dao = await hre.ethers.getContractFactory("EtherStore_03");
+  // const Dao = await hre.ethers.getContractFactory("SimpleDAO");
+
+  // # 署名するのは一つ目に取得できるアカウントらしい。
+  // # Contracts are deployed using the first signer/account by default
   const dao = await Dao.deploy();
-  const mal = await Mal.deploy();
-  // const lock = await Lock.deploy(unlockTime, { value: lockedAmount });
+  const mal = await Mal.deploy(dao.address);
+  // const lock = await contractxx.deploy(unlockTime, { value: lockedAmount });
 
   await dao.deployed();
   await mal.deployed();
 
   console.log(
-    `SimpleDAO with ${ethers.utils.formatEther(
+    `EtherStore_03 with ${ethers.utils.formatEther(
       lockedAmount
     )}ETH and unlock timestamp ${unlockTime} deployed to ${dao.address}`
   );
   console.log(
-    `Attacker with ${ethers.utils.formatEther(
+    `Attacker_03 with ${ethers.utils.formatEther(
       lockedAmount
     )}ETH and unlock timestamp ${unlockTime} deployed to ${mal.address}`
   );

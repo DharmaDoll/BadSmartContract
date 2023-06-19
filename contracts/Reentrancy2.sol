@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 // this code also works with older solidity
 /*pragma solidity ^0.4.19;*/
-contract EtherStore {
+contract EtherStore_02 {
 
     uint256 public withdrawalLimit = 1 ether;
     mapping(address => uint256) public lastWithdrawTime;
@@ -26,14 +26,14 @@ contract EtherStore {
  }
 
 
- contract Attack {
-    EtherStore public etherStore;
+ contract Attacker_02 {
+    EtherStore_02 public etherStore;
     address payable public owner;
 
 
     // intialize the etherStore variable with the contract address
     constructor(address _etherStoreAddress) {
-        etherStore = EtherStore(_etherStoreAddress);
+        etherStore = EtherStore_02(_etherStoreAddress);
         owner = payable(msg.sender);
     }
 
