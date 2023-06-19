@@ -26,15 +26,12 @@ async function main() {
   await mal.deployed();
 
   console.log(
-    `EtherStore_03 with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${dao.address}`
+    `EtherStore_03 deployed to ${dao.address}`
   );
   console.log(
-    `Attacker_03 with ${ethers.utils.formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${mal.address}`
+    `Attacker_03 deployed to ${mal.address}`
   );
+
 }
 
 // We recommend this pattern to be able to use async/await everywhere

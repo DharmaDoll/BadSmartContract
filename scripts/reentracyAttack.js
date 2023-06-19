@@ -9,8 +9,8 @@ const { exit } = require('process');
     address_etherstore = '0x5FbDB2315678afecb367f032d93F642f64180aa3'
     address_attacker = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'
     
-   //Fix address on hardhat localhost network 
-//    PRIVATE_KEY_DAO = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
+      //Fix address on hardhat localhost network 
+      // PRIVATE_KEY_DAO = '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80'
    
    
     const Attacker = await ethers.getContractAt('Attacker_03', address_attacker);
@@ -24,23 +24,16 @@ const { exit } = require('process');
     
     await printBalance()
    
-   
     victimAmount = "100" //Ether
     AttackerAmount = "1" //Ether
     
-
-
-    const ans = await question(`(d)onate to EtherStore, (a)ttack from Attacker Contract(d/a): `);
-    
+    const ans = await question(`(d)onate to EtherStore, (a)ttack from Attacker Contract(d/a): `); 
     switch (ans){
         case 'd':
             //Call payable function deposit.
             console.log(`donating ${victimAmount} Ether to victim on EtherStore`);
             //From etherstore's owner account to etherstore owner credit on EtherStore
-            EtherStore.connect(etherstore_owner).deposit({value: ethers.utils.parseEther(victimAmount)});
-            // await new Promise(resolve => setTimeout(resolve, 2000));
-
-            Attacker.connect(attacker_owner).attack({value: ethers.utils.parseEther(AttackerAmount)});
+            EtherStore.deposit({value: ethers.utils.parseEther(victimAmount)});
             break;
         case 'a':
             console.log(`Call attack() on EtherStore ("etherStore.deposit{value: 1 ether}()" and "etherStore.withdraw")`);
@@ -52,8 +45,8 @@ const { exit } = require('process');
         }
         
         
+    await new Promise(resolve => setTimeout(resolve, 2000));
     await printBalance()
-    // await new Promise(resolve => setTimeout(resolve, 20000));
     
         //From attacker account to someOne credit on `EtherStore`
         // //connect()を設定しないとfromのdonate元が必ず、etherstore_owner(contract作成者)になる。。 deploy時にlocalhost netの１番目のアカウントがSingerとして登録されてるぽいから。
@@ -66,10 +59,7 @@ const { exit } = require('process');
         //    //From attacker account to Attacker(Contract) credit on `EtherStore`
         //    console.log(`donating ${AttackerAmount} Ether to Attacker on EtherStore`);
         //    EtherStore.connect(attacker_owner).deposit(Attacker.address, {value: ethers.utils.parseEther(AttackerAmount)});
-        
-        
-        
-     
+  
    async function printBalance() {
      console.log(`
      ----------------------------------
@@ -127,4 +117,4 @@ const { exit } = require('process');
    console.error(error);
    process.exitCode = 1;
  });
- 
+
